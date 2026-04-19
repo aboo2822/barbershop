@@ -967,10 +967,8 @@
       .hero-left{width:100%;padding:0 24px 80px;background:linear-gradient(0deg,rgba(0,0,0,.92) 60%,transparent)}
       .hero-strips{left:0} .hero-divider{display:none}
       .hero-vc{left:24px;right:24px;width:auto;bottom:90px}
-      /* Mobile offline: card visible but not interactive */
-      .hero-vc.cam-offline-mobile{cursor:default;opacity:.6;pointer-events:none}
-      .hero-vc.cam-offline-mobile .vc-live{color:var(--muted)}
-      .hero-vc.cam-offline-mobile .vc-dot{background:var(--muted);animation:none}
+      /* Mobile offline: hide entirely so it doesn't block hero heading */
+      .hero-vc.cam-offline-mobile{display:none}
       /* Bottom sheet — brand stays visible above */
       .cam-expanded{
         left:0; top:auto; bottom:0; height:65vh;
@@ -1029,7 +1027,7 @@
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#culture">Culture</a></li>
     </ul>
-    <a href="#services" class="nav-cta"><span>Book Now</span></a>
+    <a href="#booking" class="nav-cta"><span>Book Now</span></a>
   </nav>
 
   <!-- ══════════════════════════════════
@@ -1047,7 +1045,7 @@
       <p class="hero-tagline">Precision Is Respect</p>
       <p class="hero-sub">Where architectural precision meets street credibility. Every appointment is an act of craft.</p>
       <div class="hero-ctas">
-        <a href="#services" class="btn-w btn-mag">
+        <a href="#booking" class="btn-w">
           Book Appointment
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -1262,7 +1260,7 @@
       <div class="svc-item" data-svc="The Full Treatment" data-price="$150"><div class="svc-row"><h3 class="svc-name">The Full Treatment</h3><span class="svc-price">$150</span></div><p class="svc-desc">Cut, shave, beard architecture, and a personalized consultation. Leave looking like yourself — only sharper.</p><span class="svc-dur">90 Minutes</span></div>
     </div>
     <div class="svc-right">
-      <div class="bk-panel">
+      <div class="bk-panel" id="booking">
         <h3 class="bk-title">Book Your Appointment</h3>
         <p class="bk-svc" id="bkSvc">Classic Cut — $75</p>
         <p class="bk-lbl">Select Your Barber</p>
@@ -1563,7 +1561,7 @@
       <div>
         <div class="ft-grp"><p class="ft-lbl">Location</p><p class="ft-val">147 Queen Street West<br>Toronto, ON M5H 2N2</p></div>
         <div class="ft-grp"><p class="ft-lbl">Hours</p><p class="ft-val">Mon–Fri: 9am – 8pm<br>Saturday: 8am – 6pm<br>Sunday: 10am – 5pm</p></div>
-        <div class="ft-grp"><p class="ft-lbl">Contact</p><p class="ft-val">hello@crespocuts.com<br>+1 (416) 555-0182</p></div>
+        <div class="ft-grp"><p class="ft-lbl">Contact</p><p class="ft-val">hello@crespocuts.com</p></div>
       </div>
       <div>
         <h4 class="nl-head">Join the List</h4>
