@@ -242,6 +242,65 @@
       pointer-events: none;
     }
 
+    /* ── MOBILE LIVE PILL BADGE ── */
+    .live-pill {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      position: fixed;
+      top: 68px;
+      left: 20px;
+      background: rgba(0,0,0,0.88);
+      border: 1px solid var(--cyan);
+      border-radius: 100px;
+      padding: 8px 14px 8px 11px;
+      cursor: pointer;
+      z-index: 150;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    .live-pill:active { transform: scale(0.96); }
+    .live-pill-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
+    .live-pill-label {
+      font-family: var(--body);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .18em;
+      color: var(--cyan);
+      text-transform: uppercase;
+    }
+    .live-pill-sep {
+      width: 1px; height: 12px;
+      background: rgba(255,255,255,.15);
+    }
+    .live-pill-views {
+      font-family: var(--body);
+      font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,.45);
+    }
+    @keyframes pill-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,240,255,.35); }
+      50%       { box-shadow: 0 0 0 6px rgba(0,240,255,0); }
+    }
+    @keyframes pill-dot-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.7); }
+    }
+    @media(max-width:768px) {
+      .live-pill.active {
+        display: flex;
+        animation: pill-glow 2s ease-in-out infinite;
+      }
+      .live-pill.active .live-pill-dot {
+        animation: pill-dot-pulse 1.4s ease-in-out infinite;
+      }
+    }
+
     /* ── CRAFT CAM EXPANDED ── */
     .cam-expanded {
       position: absolute;
@@ -1098,6 +1157,14 @@
 
     </div>
 
+    <!-- MOBILE LIVE PILL — shown on mobile only when barber is live -->
+    <div class="live-pill" id="livePill" role="button" aria-label="Barber is live — tap to watch">
+      <span class="live-pill-dot"></span>
+      <span class="live-pill-label">Live</span>
+      <span class="live-pill-sep"></span>
+      <span class="live-pill-views" id="livePillViews">247</span>
+    </div>
+
     <!-- FLOATING VIDEO CARD — straddles the gold divider -->
     <div class="hero-vc">
       <div class="vc-header">
@@ -1691,16 +1758,22 @@
     const camNowName    = document.getElementById('camNowName');
     const camStreamRdy  = document.getElementById('camStreamReady');
     const camDemoToggle = document.getElementById('camDemoToggle');
+    const livePill      = document.getElementById('livePill');
+    const livePillViews = document.getElementById('livePillViews');
     let camViewInterval = null;
     let camIsLive = false;
 
     // Apply correct initial state on page load
     if (window.innerWidth <= 768) heroVc.classList.add('cam-offline-mobile');
 
+    // Pill click → open cam (same as clicking the card on desktop)
+    livePill.addEventListener('click', openCam);
+
     function setCamLive(live) {
       camIsLive = live;
-      // On mobile: dim the card when offline, restore when live
+      // On mobile: hide the card, toggle pill badge instead
       heroVc.classList.toggle('cam-offline-mobile', !live && window.innerWidth <= 768);
+      if (window.innerWidth <= 768) livePill.classList.toggle('active', live);
       if (live) {
         camPanel.classList.remove('is-offline');
         camOfflineEl.style.display = 'none';
@@ -1712,8 +1785,9 @@
         camDemoToggle.classList.add('is-live');
         clearInterval(camViewInterval);
         camViewInterval = setInterval(() => {
-          const v = 247 + Math.round((Math.random() - 0.35) * 55);
-          if (camViewEl) camViewEl.textContent = Math.max(190, v);
+          const v = Math.max(190, 247 + Math.round((Math.random() - 0.35) * 55));
+          if (camViewEl) camViewEl.textContent = v;
+          if (livePillViews) livePillViews.textContent = v;
         }, 3200);
       } else {
         camPanel.classList.add('is-offline');
