@@ -1694,6 +1694,9 @@
     let camViewInterval = null;
     let camIsLive = false;
 
+    // Apply correct initial state on page load
+    if (window.innerWidth <= 768) heroVc.classList.add('cam-offline-mobile');
+
     function setCamLive(live) {
       camIsLive = live;
       // On mobile: dim the card when offline, restore when live
