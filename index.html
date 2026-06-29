@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRESPO — Precision Barbershop</title>
+  <title>MTHW — Matthew · Toronto Barber</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,300;0,700;0,900;1,300;1,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -14,7 +15,7 @@
       --gold:    #D4AF37;
       --cyan:    #00F0FF;
       --dark:    #1A1A1A;
-      --mid:     #CCCCCC; 
+      --mid:     #CCCCCC;
       --bg:      #0D0D0D;
       --text:    #FFFFFF;
       --muted:   #999999;
@@ -220,387 +221,6 @@
     .strip:nth-child(3) .strip-track { animation: sUp 17s linear infinite; }
     @keyframes sUp { from{transform:translateY(0)} to{transform:translateY(-50%)} }
     @keyframes sDn  { from{transform:translateY(-50%)} to{transform:translateY(0)} }
-
-    /* FLOATING VIDEO CARD — straddles the gold divider */
-    .hero-vc {
-      position: absolute; bottom: 116px;
-      left: calc(37% - 132px); /* center on the divider */
-      width: 264px; z-index: 22;
-      background: rgba(0,0,0,.94);
-      border: 1px solid rgba(212,175,55,.38);
-      backdrop-filter: blur(20px);
-      animation: fadeUp 1s 2.3s var(--ease) both;
-      cursor: pointer;
-      transition: border-color .3s var(--ease), box-shadow .3s var(--ease), opacity .35s var(--ease);
-    }
-    .hero-vc:hover {
-      border-color: rgba(212,175,55,.7);
-      box-shadow: 0 0 24px rgba(212,175,55,.18), 0 0 6px rgba(0,240,255,.12);
-    }
-    .hero-vc.cam-hidden {
-      opacity: 0 !important;
-      pointer-events: none;
-    }
-
-    /* ── MOBILE LIVE PILL BADGE ── */
-    @keyframes pill-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0,240,255,.4); }
-      50%       { box-shadow: 0 0 0 8px rgba(0,240,255,0); }
-    }
-    @keyframes pill-dot-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .4; transform: scale(.65); }
-    }
-    .live-pill {
-      display: none; /* shown only in mobile media query */
-      align-items: center;
-      gap: 8px;
-      position: fixed;
-      top: 68px;
-      left: 20px;
-      background: rgba(0,0,0,0.88);
-      border: 1px solid rgba(212,175,55,.5);
-      border-radius: 100px;
-      padding: 8px 16px 8px 12px;
-      cursor: pointer;
-      z-index: 150;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
-    }
-    .live-pill:active { transform: scale(0.94); }
-    .live-pill-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-      transition: background .3s var(--ease);
-    }
-    .live-pill-label {
-      font-family: var(--body);
-      font-size: 10px; font-weight: 700;
-      letter-spacing: .16em;
-      color: rgba(255,255,255,.7);
-      text-transform: uppercase;
-      transition: color .3s var(--ease);
-    }
-    .live-pill-sep {
-      width: 1px; height: 11px;
-      background: rgba(255,255,255,.15);
-    }
-    .live-pill-views {
-      font-family: var(--body);
-      font-size: 10px; font-weight: 500;
-      color: rgba(255,255,255,.38);
-      display: none;
-    }
-    /* Live state — cyan glow + pulsing dot */
-    .live-pill.is-live {
-      border-color: var(--cyan);
-      animation: pill-glow 2s ease-in-out infinite;
-    }
-    .live-pill.is-live .live-pill-dot {
-      background: var(--cyan);
-      animation: pill-dot-pulse 1.4s ease-in-out infinite;
-    }
-    .live-pill.is-live .live-pill-label { color: var(--cyan); }
-    .live-pill.is-live .live-pill-views { display: block; }
-    @media(max-width:768px) {
-      .live-pill { display: flex; }
-    }
-
-    /* ── CRAFT CAM EXPANDED ── */
-    .cam-expanded {
-      position: absolute;
-      top: 0; left: 37%; right: 0; bottom: 0;
-      z-index: 210;
-      background: #000;
-      display: flex; flex-direction: column;
-      clip-path: inset(76% 54% 8% 0%);
-      opacity: 0;
-      pointer-events: none;
-      transition: clip-path 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
-    }
-    .cam-expanded::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 1px; height: 100%;
-      background: linear-gradient(180deg, transparent, rgba(212,175,55,.65) 22%, rgba(212,175,55,.65) 78%, transparent);
-      z-index: 5; pointer-events: none;
-    }
-    .cam-expanded.open {
-      clip-path: inset(0% 0% 0% 0%);
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .cam-close {
-      position: absolute; top: 20px; right: 20px;
-      z-index: 100;
-      width: 44px; height: 44px;
-      background: rgba(0,0,0,.82);
-      border: 1px solid rgba(212,175,55,.65);
-      color: var(--gold);
-      cursor: pointer;
-      pointer-events: all;
-      display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(12px);
-      transition: background .25s var(--ease), border-color .25s var(--ease), transform .2s var(--ease);
-    }
-    .cam-close:hover {
-      background: rgba(212,175,55,.18);
-      border-color: var(--gold);
-      transform: scale(1.09);
-    }
-    .cam-top-bar {
-      position: absolute; top: 0; left: 0; right: 0;
-      padding: 20px 28px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: linear-gradient(180deg, rgba(0,0,0,.82) 0%, transparent 100%);
-      z-index: 4;
-      pointer-events: none;
-    }
-    .cam-live-badge, .cam-stream-time { pointer-events: none; }
-    .cam-live-badge {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 600; letter-spacing: .22em;
-      text-transform: uppercase; color: var(--cyan);
-    }
-    .cam-live-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 0 0 rgba(0,240,255,.55);
-      animation: camPulse 1.3s ease-in-out infinite;
-    }
-    @keyframes camPulse {
-      0%   { box-shadow: 0 0 0 0 rgba(0,240,255,.6); }
-      70%  { box-shadow: 0 0 0 9px rgba(0,240,255,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); }
-    }
-    .cam-stream-time {
-      font-family: var(--display); font-size: 12px; font-weight: 300;
-      letter-spacing: .12em; color: var(--muted);
-      padding-right: 58px; /* clear close btn */
-    }
-    /* ── OFFLINE / LIVE STATE PANELS ── */
-    .cam-feed-offline, .cam-feed-live {
-      position: absolute; inset: 0; overflow: hidden;
-    }
-    .cam-feed-live { display: none; }
-
-    /* Cycling images — offline */
-    .cam-cycle-img {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0;
-      filter: contrast(1.02) brightness(.65) saturate(.3);
-      animation: camCycle 18s linear infinite;
-    }
-    .cam-cycle-img:nth-child(1){animation-delay:0s}
-    .cam-cycle-img:nth-child(2){animation-delay:6s}
-    .cam-cycle-img:nth-child(3){animation-delay:12s}
-    @keyframes camCycle {
-      0%{opacity:0} 5%{opacity:1} 28%{opacity:1} 33%{opacity:0} 100%{opacity:0}
-    }
-
-    /* OFF AIR badge */
-    .cam-offair-badge {
-      position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
-      color: rgba(255,255,255,.45);
-      background: rgba(0,0,0,.8); backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,.1);
-      padding: 6px 16px; z-index: 4; white-space: nowrap;
-    }
-    .cam-offair-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: rgba(255,255,255,.25);
-    }
-    .cam-next-session {
-      position: absolute; bottom: 100px; left: 0; right: 0; text-align: center;
-      font-size: 11px; letter-spacing: .1em; color: rgba(255,255,255,.3);
-      z-index: 4; padding: 0 28px;
-    }
-
-    /* Live mock player */
-    .cam-mock-live { position: absolute; inset: 0; overflow: hidden; }
-    .cam-mock-live-img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: contrast(1.1) brightness(.85) saturate(.92);
-    }
-    .cam-scanlines {
-      position: absolute; inset: 0; z-index: 2; pointer-events: none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.045) 3px, rgba(0,0,0,.045) 6px);
-    }
-    .cam-yt-bar {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,.95) 0%, rgba(0,0,0,.5) 70%, transparent 100%);
-      padding: 32px 18px 14px; z-index: 3;
-    }
-    .cam-yt-progress {
-      width: 100%; height: 3px;
-      background: rgba(255,255,255,.18); border-radius: 2px;
-      position: relative; margin-bottom: 10px;
-    }
-    .cam-yt-fill {
-      position: absolute; left: 0; top: 0; bottom: 0;
-      width: calc(100% - 5px); background: #FF0000; border-radius: 2px;
-    }
-    .cam-yt-live-knob {
-      position: absolute; right: 0; top: -3px;
-      width: 9px; height: 9px; border-radius: 50%; background: #FF0000;
-    }
-    .cam-yt-meta { display: flex; align-items: center; gap: 10px; }
-    .cam-yt-badge {
-      font-size: 10px; font-weight: 700; letter-spacing: .06em;
-      background: #FF0000; color: #fff; padding: 2px 7px; border-radius: 2px;
-    }
-    .cam-yt-channel {
-      font-size: 12px; font-weight: 500; color: rgba(255,255,255,.75); letter-spacing: .03em;
-    }
-    .cam-quality {
-      position: absolute; top: 22px; right: 76px;
-      font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--primary); background: var(--gold);
-      padding: 4px 10px; z-index: 4;
-    }
-    .cam-viewers {
-      position: absolute; bottom: 90px; right: 22px;
-      display: flex; align-items: center; gap: 7px;
-      font-size: 11px; letter-spacing: .07em; color: var(--mid);
-      background: rgba(0,0,0,.72); backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,.1);
-      padding: 6px 13px; z-index: 4;
-    }
-
-    /* Top bar — live vs offline badge swap */
-    .cam-badge-live { display: flex; align-items: center; gap: 8px; }
-    .cam-badge-offline {
-      display: none; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 600; letter-spacing: .22em;
-      text-transform: uppercase; color: rgba(255,255,255,.3);
-    }
-    .cam-badge-offline-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: rgba(255,255,255,.2);
-    }
-    .cam-expanded.is-offline .cam-badge-live  { display: none; }
-    .cam-expanded.is-offline .cam-badge-offline { display: flex; }
-    .cam-expanded.is-offline .cam-quality  { display: none; }
-    .cam-expanded.is-offline .cam-viewers  { display: none; }
-
-    /* Bottom bar */
-    .cam-bottom-bar {
-      position: absolute; bottom: 52px; left: 0; right: 0;
-      padding: 26px 28px 16px;
-      background: linear-gradient(0deg, rgba(0,0,0,.88) 0%, transparent 100%);
-      display: flex; align-items: flex-end; justify-content: space-between;
-      z-index: 4; pointer-events: none;
-    }
-    .cam-now-label {
-      display: block;
-      font-size: 10px; font-weight: 600; letter-spacing: .24em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
-    }
-    .cam-now-name {
-      display: block;
-      font-family: var(--display); font-weight: 700;
-      font-size: clamp(.9rem, 2vw, 1.4rem);
-      letter-spacing: -.01em; line-height: 1.1;
-      color: var(--text); text-transform: uppercase;
-    }
-    .cam-stream-ready {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); white-space: nowrap;
-    }
-    .cam-stream-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,.22);
-      animation: streamBlink 2.2s ease-in-out infinite;
-    }
-    @keyframes streamBlink {
-      0%,100% { background: rgba(255,255,255,.22); }
-      50%      { background: rgba(0,240,255,.55); }
-    }
-
-    /* Demo control strip */
-    .cam-demo-bar {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 52px;
-      padding: 0 20px;
-      background: rgba(0,0,0,.92);
-      border-top: 1px solid rgba(212,175,55,.15);
-      display: flex; align-items: center; justify-content: space-between;
-      z-index: 6;
-    }
-    .cam-demo-label {
-      font-size: 9px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
-      color: rgba(212,175,55,.4);
-    }
-    .cam-demo-toggle {
-      font-family: var(--display); font-size: 10px; font-weight: 700;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--gold); background: transparent;
-      border: 1px solid rgba(212,175,55,.35);
-      padding: 7px 18px; cursor: pointer;
-      transition: all .25s var(--ease);
-      pointer-events: all;
-    }
-    .cam-demo-toggle:hover { background: rgba(212,175,55,.1); border-color: var(--gold); }
-    .cam-demo-toggle.is-live { color: var(--cyan); border-color: rgba(0,240,255,.35); }
-    .cam-demo-toggle.is-live:hover { background: rgba(0,240,255,.08); border-color: var(--cyan); }
-    .vc-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 9px 13px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .vc-live {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 10px; font-weight: 600; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--cyan);
-    }
-    .vc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 1.4s ease-in-out infinite; }
-    .vc-time { font-family: var(--display); font-size: 11px; font-weight: 300; letter-spacing: .1em; color: var(--muted); }
-    /* Cycling "video" images */
-    .vc-frame { position: relative; aspect-ratio: 16/9; overflow: hidden; }
-    .vc-img {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0;
-      animation: vcFade 16s linear infinite, vcZoom 4s ease-in-out alternate infinite;
-    }
-    .vc-img:nth-child(1){animation-delay:0s}
-    .vc-img:nth-child(2){animation-delay:4s}
-    .vc-img:nth-child(3){animation-delay:8s}
-    .vc-img:nth-child(4){animation-delay:12s}
-    @keyframes vcFade {
-      0%{opacity:0} 4%{opacity:1} 24%{opacity:1} 29%{opacity:0} 100%{opacity:0}
-    }
-    @keyframes vcZoom {
-      from{transform:scale(1)} to{transform:scale(1.06)}
-    }
-    /* CRT scanlines */
-    .vc-frame::after {
-      content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.06) 2px, rgba(0,0,0,.06) 4px);
-    }
-    .vc-progress-wrap {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 3px; z-index: 3;
-      background: rgba(255,255,255,.1);
-    }
-    .vc-progress-bar {
-      height: 100%; background: var(--gold);
-      animation: vcProg 16s linear infinite;
-    }
-    @keyframes vcProg { from{width:0%} to{width:100%} }
-    .vc-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 9px 13px;
-    }
-    .vc-label { font-size: 11px; letter-spacing: .06em; color: var(--mid); }
-    .vc-badge {
-      font-family: var(--display); font-size: 9px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--primary); background: var(--gold); padding: 3px 8px;
-    }
 
     /* SCROLL HINT */
     .scroll-hint {
@@ -1012,8 +632,6 @@
       #nav{padding:24px 40px}
       .hero-left{padding:0 40px 80px;width:45%}
       .hero-strips{left:45%} .hero-divider{left:45%}
-      .hero-vc{left:calc(45% - 132px)}
-      .cam-expanded{left:45%}
       #philosophy{padding:120px 40px}
       .phil-layout{grid-template-columns:1fr 1fr;gap:60px}
       .stats-row{grid-template-columns:repeat(2,1fr)}
@@ -1040,24 +658,6 @@
       #nav{padding:18px 20px} .nav-links{display:none}
       .hero-left{width:100%;padding:0 24px 80px;background:linear-gradient(0deg,rgba(0,0,0,.92) 60%,transparent)}
       .hero-strips{left:0} .hero-divider{display:none}
-      .hero-vc{left:24px;right:24px;width:auto;bottom:90px}
-      /* Mobile offline: hide entirely so it doesn't block hero heading */
-      .hero-vc.cam-offline-mobile{display:none}
-      /* Bottom sheet — brand stays visible above */
-      .cam-expanded{
-        left:0; top:auto; bottom:0; height:65vh;
-        clip-path:none; transform:translateY(105%); opacity:1;
-        border-top:1px solid rgba(212,175,55,.45);
-        transition:transform 0.52s cubic-bezier(0.4,0,0.2,1);
-      }
-      .cam-expanded::before{display:none}
-      .cam-expanded.open{clip-path:none;transform:translateY(0);opacity:1}
-      .cam-close{top:14px;right:14px;width:38px;height:38px}
-      .cam-bottom-bar{bottom:52px;padding:14px 18px 10px}
-      .cam-viewers{bottom:68px;right:16px}
-      .cam-next-session{bottom:72px}
-      .cam-offair-badge{top:16px}
-      .cam-now-name{font-size:clamp(.85rem,3.5vw,1.1rem)}
       #philosophy{padding:80px 24px} .phil-layout{grid-template-columns:1fr} .phil-bg{display:none}
       .stats-row{grid-template-columns:1fr 1fr}
       #team{padding:80px 24px} .team-grid{grid-template-columns:1fr}
@@ -1073,7 +673,108 @@
       footer{padding:64px 24px 40px} .ft-grid{grid-template-columns:1fr;gap:40px}
       #radio-bar{padding:0 24px} .rb-center{display:none}
     }
+    /* ── SINGLE-BARBER (MTHW) OVERRIDES ── */
+    .team-solo { display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:center; max-width:1000px; margin:0 auto; }
+    .team-solo .bc { margin:0 !important; }
+    .team-solo .bc-wrap { aspect-ratio:3/4 !important; }
+    .solo-bio p { font-size:clamp(1rem,1.4vw,1.18rem); line-height:1.75; color:var(--mid); margin-bottom:22px; }
+    .solo-bio p:last-child { margin-bottom:0; }
+    @media(max-width:768px){ .team-solo{ grid-template-columns:1fr; gap:32px; max-width:440px; } }
   </style>
+<style id="bg-art">
+  /* ============================================================
+     MTHW — BACKGROUND ART  (barber line-art motif + glow + grain)
+     Palette untouched: gold / cyan on black
+  ============================================================ */
+
+  /* film grain over the whole page */
+  body::after{
+    content:'';position:fixed;inset:0;z-index:300;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* TEAM — warm gold wash + tools tile */
+  #team{
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(820px circle at 30% 44%, rgba(212,175,55,.10), transparent 58%),
+      radial-gradient(620px circle at 90% 86%, rgba(0,240,255,.05), transparent 60%),
+      var(--bg) !important;
+  }
+  #team > .jr, #team .team-solo{ position:relative; z-index:2; }
+
+  /* GRAFFITI TAG — street tag: marker word + arrow swoosh + drips */
+  .graf-wrap{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .graf-piece{
+    position:absolute; left:50%; top:53%; width:min(1080px,94%);
+    transform:translate(-50%,-50%) rotate(-7deg);
+  }
+  .graf-word{
+    font-family:'Permanent Marker',cursive; text-align:center;
+    font-size:clamp(4.5rem,13vw,15rem); line-height:.84; letter-spacing:.01em;
+    color:rgba(255,255,255,.07);
+    -webkit-text-stroke:2px rgba(212,175,55,.30);
+    text-shadow:3px 4px 0 rgba(0,0,0,.55);
+  }
+  .graf-mini{
+    position:absolute; right:5%; top:13%; transform:rotate(8deg);
+    font-family:'Permanent Marker',cursive; font-size:clamp(1.6rem,3.6vw,3rem);
+    color:rgba(255,255,255,.06); -webkit-text-stroke:1px rgba(0,240,255,.20);
+  }
+  @media(max-width:768px){
+    .graf-piece{ width:96%; top:52%; }
+    .graf-word{ font-size:clamp(3rem,18vw,7rem); }
+    .graf-mini{ display:none; }
+  }
+
+  /* SERVICES — cyan edge glow + tools tile */
+  #services{
+    background:
+      radial-gradient(680px circle at 88% 12%, rgba(0,240,255,.06), transparent 60%),
+      radial-gradient(620px circle at 8% 90%, rgba(212,175,55,.06), transparent 60%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22440%22%20height%3D%22440%22%20viewBox%3D%220%200%20440%20440%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20open%20scissors%2C%20lower-left%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%2860%2C250%29%20rotate%28-12%29%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M2%2C64%20L20%2C20%22%2F%3E%3Cpath%20d%3D%22M36%2C64%20L20%2C20%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2218%22%20r%3D%223.4%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M20%2C18%20L-12%2C-58%22%2F%3E%3Cpath%20d%3D%22M20%2C18%20L52%2C-58%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20comb%2C%20upper-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28296%2C70%29%20rotate%28-22%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22120%22%20height%3D%2215%22%20rx%3D%227%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%2215%22%20x2%3D%2210%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2224%22%20y1%3D%2215%22%20x2%3D%2224%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2238%22%20y1%3D%2215%22%20x2%3D%2238%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2252%22%20y1%3D%2215%22%20x2%3D%2252%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2266%22%20y1%3D%2215%22%20x2%3D%2266%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2280%22%20y1%3D%2215%22%20x2%3D%2280%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2294%22%20y1%3D%2215%22%20x2%3D%2294%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%22108%22%20y1%3D%2215%22%20x2%3D%22108%22%20y2%3D%2242%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20clipper%2C%20mid-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28330%2C250%29%20rotate%2814%29%22%3E%0A%20%20%20%20%3Cline%20x1%3D%22-14%22%20y1%3D%22-30%22%20x2%3D%22-14%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%22-8%22%20y1%3D%22-30%22%20x2%3D%22-8%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-2%22%20y1%3D%22-30%22%20x2%3D%22-2%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%22-30%22%20x2%3D%224%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%22-30%22%20x2%3D%2210%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22-18%22%20y%3D%22-18%22%20width%3D%2236%22%20height%3D%2216%22%20rx%3D%223%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-15%2C-2%20Q-17%2C0%20-17%2C4%20L-17%2C120%20Q-17%2C140%200%2C144%20Q17%2C140%2017%2C120%20L17%2C4%20Q17%2C0%2015%2C-2%20Z%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2248%22%20x2%3D%2212%22%20y2%3D%2248%22%2F%3E%3Cline%20x1%3D%22-12%22%20y1%3D%2256%22%20x2%3D%2212%22%20y2%3D%2256%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2264%22%20x2%3D%2212%22%20y2%3D%2264%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3C%21--%20sparkles%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M220%2C180%20C223%2C200%20230%2C207%20250%2C210%20C230%2C213%20223%2C220%20220%2C240%20C217%2C220%20210%2C213%20190%2C210%20C210%2C207%20217%2C200%20220%2C180%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M380%2C360%20C382%2C372%20387%2C377%20399%2C379%20C387%2C381%20382%2C386%20380%2C398%20C378%2C386%20373%2C381%20361%2C379%20C373%2C377%20378%2C372%20380%2C360%20Z%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M70%2C410%20C71%2C418%2075%2C422%2083%2C423%20C75%2C424%2071%2C428%2070%2C436%20C69%2C428%2065%2C424%2057%2C423%20C65%2C422%2069%2C418%2070%2C410%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%205-point%20stars%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22150%2C330%20156%2C348%20175%2C348%20160%2C360%20165%2C378%20150%2C367%20135%2C378%20140%2C360%20125%2C348%20144%2C348%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22410%2C120%20414%2C132%20427%2C132%20417%2C140%20420%2C153%20410%2C145%20400%2C153%20403%2C140%20393%2C132%20406%2C132%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E"),
+      var(--primary) !important;
+    background-repeat:no-repeat,no-repeat,repeat;
+    background-size:100% 100%,100% 100%,440px 440px;
+  }
+
+  /* REVIEWS — soft gold glow + tools tile */
+  #reviews{
+    background:
+      radial-gradient(760px circle at 50% 0%, rgba(212,175,55,.07), transparent 55%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22440%22%20height%3D%22440%22%20viewBox%3D%220%200%20440%20440%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20open%20scissors%2C%20lower-left%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%2860%2C250%29%20rotate%28-12%29%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M2%2C64%20L20%2C20%22%2F%3E%3Cpath%20d%3D%22M36%2C64%20L20%2C20%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2218%22%20r%3D%223.4%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M20%2C18%20L-12%2C-58%22%2F%3E%3Cpath%20d%3D%22M20%2C18%20L52%2C-58%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20comb%2C%20upper-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28296%2C70%29%20rotate%28-22%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22120%22%20height%3D%2215%22%20rx%3D%227%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%2215%22%20x2%3D%2210%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2224%22%20y1%3D%2215%22%20x2%3D%2224%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2238%22%20y1%3D%2215%22%20x2%3D%2238%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2252%22%20y1%3D%2215%22%20x2%3D%2252%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2266%22%20y1%3D%2215%22%20x2%3D%2266%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2280%22%20y1%3D%2215%22%20x2%3D%2280%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2294%22%20y1%3D%2215%22%20x2%3D%2294%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%22108%22%20y1%3D%2215%22%20x2%3D%22108%22%20y2%3D%2242%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20clipper%2C%20mid-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28330%2C250%29%20rotate%2814%29%22%3E%0A%20%20%20%20%3Cline%20x1%3D%22-14%22%20y1%3D%22-30%22%20x2%3D%22-14%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%22-8%22%20y1%3D%22-30%22%20x2%3D%22-8%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-2%22%20y1%3D%22-30%22%20x2%3D%22-2%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%22-30%22%20x2%3D%224%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%22-30%22%20x2%3D%2210%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22-18%22%20y%3D%22-18%22%20width%3D%2236%22%20height%3D%2216%22%20rx%3D%223%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-15%2C-2%20Q-17%2C0%20-17%2C4%20L-17%2C120%20Q-17%2C140%200%2C144%20Q17%2C140%2017%2C120%20L17%2C4%20Q17%2C0%2015%2C-2%20Z%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2248%22%20x2%3D%2212%22%20y2%3D%2248%22%2F%3E%3Cline%20x1%3D%22-12%22%20y1%3D%2256%22%20x2%3D%2212%22%20y2%3D%2256%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2264%22%20x2%3D%2212%22%20y2%3D%2264%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3C%21--%20sparkles%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M220%2C180%20C223%2C200%20230%2C207%20250%2C210%20C230%2C213%20223%2C220%20220%2C240%20C217%2C220%20210%2C213%20190%2C210%20C210%2C207%20217%2C200%20220%2C180%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M380%2C360%20C382%2C372%20387%2C377%20399%2C379%20C387%2C381%20382%2C386%20380%2C398%20C378%2C386%20373%2C381%20361%2C379%20C373%2C377%20378%2C372%20380%2C360%20Z%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M70%2C410%20C71%2C418%2075%2C422%2083%2C423%20C75%2C424%2071%2C428%2070%2C436%20C69%2C428%2065%2C424%2057%2C423%20C65%2C422%2069%2C418%2070%2C410%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%205-point%20stars%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22150%2C330%20156%2C348%20175%2C348%20160%2C360%20165%2C378%20150%2C367%20135%2C378%20140%2C360%20125%2C348%20144%2C348%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22410%2C120%20414%2C132%20427%2C132%20417%2C140%20420%2C153%20410%2C145%20400%2C153%20403%2C140%20393%2C132%20406%2C132%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E"),
+      var(--primary) !important;
+    background-repeat:no-repeat,repeat;
+    background-size:100% 100%,440px 440px;
+  }
+
+  /* PHILOSOPHY — keep its gradient, add cyan glow + tile */
+  #philosophy{
+    background:
+      radial-gradient(700px circle at 85% 12%, rgba(0,240,255,.055), transparent 60%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22440%22%20height%3D%22440%22%20viewBox%3D%220%200%20440%20440%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20open%20scissors%2C%20lower-left%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%2860%2C250%29%20rotate%28-12%29%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M2%2C64%20L20%2C20%22%2F%3E%3Cpath%20d%3D%22M36%2C64%20L20%2C20%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2218%22%20r%3D%223.4%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M20%2C18%20L-12%2C-58%22%2F%3E%3Cpath%20d%3D%22M20%2C18%20L52%2C-58%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20comb%2C%20upper-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28296%2C70%29%20rotate%28-22%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22120%22%20height%3D%2215%22%20rx%3D%227%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%2215%22%20x2%3D%2210%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2224%22%20y1%3D%2215%22%20x2%3D%2224%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2238%22%20y1%3D%2215%22%20x2%3D%2238%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2252%22%20y1%3D%2215%22%20x2%3D%2252%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2266%22%20y1%3D%2215%22%20x2%3D%2266%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2280%22%20y1%3D%2215%22%20x2%3D%2280%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2294%22%20y1%3D%2215%22%20x2%3D%2294%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%22108%22%20y1%3D%2215%22%20x2%3D%22108%22%20y2%3D%2242%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20clipper%2C%20mid-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28330%2C250%29%20rotate%2814%29%22%3E%0A%20%20%20%20%3Cline%20x1%3D%22-14%22%20y1%3D%22-30%22%20x2%3D%22-14%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%22-8%22%20y1%3D%22-30%22%20x2%3D%22-8%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-2%22%20y1%3D%22-30%22%20x2%3D%22-2%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%22-30%22%20x2%3D%224%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%22-30%22%20x2%3D%2210%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22-18%22%20y%3D%22-18%22%20width%3D%2236%22%20height%3D%2216%22%20rx%3D%223%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-15%2C-2%20Q-17%2C0%20-17%2C4%20L-17%2C120%20Q-17%2C140%200%2C144%20Q17%2C140%2017%2C120%20L17%2C4%20Q17%2C0%2015%2C-2%20Z%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2248%22%20x2%3D%2212%22%20y2%3D%2248%22%2F%3E%3Cline%20x1%3D%22-12%22%20y1%3D%2256%22%20x2%3D%2212%22%20y2%3D%2256%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2264%22%20x2%3D%2212%22%20y2%3D%2264%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3C%21--%20sparkles%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M220%2C180%20C223%2C200%20230%2C207%20250%2C210%20C230%2C213%20223%2C220%20220%2C240%20C217%2C220%20210%2C213%20190%2C210%20C210%2C207%20217%2C200%20220%2C180%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M380%2C360%20C382%2C372%20387%2C377%20399%2C379%20C387%2C381%20382%2C386%20380%2C398%20C378%2C386%20373%2C381%20361%2C379%20C373%2C377%20378%2C372%20380%2C360%20Z%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M70%2C410%20C71%2C418%2075%2C422%2083%2C423%20C75%2C424%2071%2C428%2070%2C436%20C69%2C428%2065%2C424%2057%2C423%20C65%2C422%2069%2C418%2070%2C410%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%205-point%20stars%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22150%2C330%20156%2C348%20175%2C348%20160%2C360%20165%2C378%20150%2C367%20135%2C378%20140%2C360%20125%2C348%20144%2C348%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22410%2C120%20414%2C132%20427%2C132%20417%2C140%20420%2C153%20410%2C145%20400%2C153%20403%2C140%20393%2C132%20406%2C132%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E"),
+      linear-gradient(180deg, var(--primary) 0%, var(--dark) 100%) !important;
+    background-repeat:no-repeat,repeat,no-repeat;
+    background-size:100% 100%,440px 440px,100% 100%;
+  }
+
+  /* FOOTER — tools tile + faint gold glow */
+  footer{
+    background:
+      radial-gradient(640px circle at 80% 0%, rgba(212,175,55,.06), transparent 60%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22440%22%20height%3D%22440%22%20viewBox%3D%220%200%20440%20440%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20open%20scissors%2C%20lower-left%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%2860%2C250%29%20rotate%28-12%29%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2278%22%20r%3D%2215%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M2%2C64%20L20%2C20%22%2F%3E%3Cpath%20d%3D%22M36%2C64%20L20%2C20%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2218%22%20r%3D%223.4%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M20%2C18%20L-12%2C-58%22%2F%3E%3Cpath%20d%3D%22M20%2C18%20L52%2C-58%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20comb%2C%20upper-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28296%2C70%29%20rotate%28-22%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22120%22%20height%3D%2215%22%20rx%3D%227%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%2215%22%20x2%3D%2210%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2224%22%20y1%3D%2215%22%20x2%3D%2224%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2238%22%20y1%3D%2215%22%20x2%3D%2238%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2252%22%20y1%3D%2215%22%20x2%3D%2252%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2266%22%20y1%3D%2215%22%20x2%3D%2266%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%2280%22%20y1%3D%2215%22%20x2%3D%2280%22%20y2%3D%2242%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2294%22%20y1%3D%2215%22%20x2%3D%2294%22%20y2%3D%2242%22%2F%3E%3Cline%20x1%3D%22108%22%20y1%3D%2215%22%20x2%3D%22108%22%20y2%3D%2242%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3C%21--%20clipper%2C%20mid-right%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28330%2C250%29%20rotate%2814%29%22%3E%0A%20%20%20%20%3Cline%20x1%3D%22-14%22%20y1%3D%22-30%22%20x2%3D%22-14%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%22-8%22%20y1%3D%22-30%22%20x2%3D%22-8%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-2%22%20y1%3D%22-30%22%20x2%3D%22-2%22%20y2%3D%22-18%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%22-30%22%20x2%3D%224%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%22-30%22%20x2%3D%2210%22%20y2%3D%22-18%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22-18%22%20y%3D%22-18%22%20width%3D%2236%22%20height%3D%2216%22%20rx%3D%223%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M-15%2C-2%20Q-17%2C0%20-17%2C4%20L-17%2C120%20Q-17%2C140%200%2C144%20Q17%2C140%2017%2C120%20L17%2C4%20Q17%2C0%2015%2C-2%20Z%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2248%22%20x2%3D%2212%22%20y2%3D%2248%22%2F%3E%3Cline%20x1%3D%22-12%22%20y1%3D%2256%22%20x2%3D%2212%22%20y2%3D%2256%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22-12%22%20y1%3D%2264%22%20x2%3D%2212%22%20y2%3D%2264%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3C%21--%20sparkles%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M220%2C180%20C223%2C200%20230%2C207%20250%2C210%20C230%2C213%20223%2C220%20220%2C240%20C217%2C220%20210%2C213%20190%2C210%20C210%2C207%20217%2C200%20220%2C180%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpath%20d%3D%22M380%2C360%20C382%2C372%20387%2C377%20399%2C379%20C387%2C381%20382%2C386%20380%2C398%20C378%2C386%20373%2C381%20361%2C379%20C373%2C377%20378%2C372%20380%2C360%20Z%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M70%2C410%20C71%2C418%2075%2C422%2083%2C423%20C75%2C424%2071%2C428%2070%2C436%20C69%2C428%2065%2C424%2057%2C423%20C65%2C422%2069%2C418%2070%2C410%20Z%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%205-point%20stars%20--%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523D4AF37%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22150%2C330%20156%2C348%20175%2C348%20160%2C360%20165%2C378%20150%2C367%20135%2C378%20140%2C360%20125%2C348%20144%2C348%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%2523ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%20%20%3Cpolygon%20points%3D%22410%2C120%20414%2C132%20427%2C132%20417%2C140%20420%2C153%20410%2C145%20400%2C153%20403%2C140%20393%2C132%20406%2C132%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E"),
+      var(--primary) !important;
+    background-repeat:no-repeat,repeat;
+    background-size:100% 100%,440px 440px;
+  }
+
+  /* HERO — subtle gold pool behind the brand panel */
+  #hero{
+    background:
+      radial-gradient(820px circle at 22% 70%, rgba(212,175,55,.10), transparent 55%),
+      #000 !important;
+  }
+</style>
 </head>
 <body class="loading">
 
@@ -1091,12 +792,12 @@
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-left">
-      <a href="#" class="nav-logo">MTHW<a>
+      <a href="#" class="nav-logo">MTHW</a>
       <div class="nav-live"><div class="nav-live-dot"></div><span>Radio</span></div>
     </div>
     <ul class="nav-links">
       <li><a href="#philosophy">Philosophy</a></li>
-      <li><a href="#team">Team</a></li>
+      <li><a href="#team">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#culture">Culture</a></li>
@@ -1111,19 +812,19 @@
 
     <!-- LEFT BRAND PANEL -->
     <div class="hero-left">
-      <span class="hero-vert-label">Toronto · Est. 2019 · Premium</span>
-      <span class="hero-eyebrow">Premium Barbershop · Est. 2019 · Toronto</span>
+      <span class="hero-vert-label">Toronto · Est. 2024 · Mobile Barber</span>
+      <span class="hero-eyebrow">Solo Barber · Est. 2024 · Toronto</span>
       <h1 class="hero-brand">
         <span class="hl">M</span><span class="hl">T</span><span class="hl">H</span><span class="hl">W</span>
       </h1>
-      <p class="hero-tagline">Precision Is Respect</p>
-      <p class="hero-sub">Where architectural precision meets street credibility. Every appointment is an act of craft.</p>
+      <p class="hero-tagline">I Come to You.</p>
+      <p class="hero-sub">I'm Matthew — a mobile barber serving Toronto. I bring the chair, the clippers, and the full setup to you. Book a time and I'll come to your door.</p>
       <div class="hero-ctas">
         <a href="#booking" class="btn-w">
           Book Appointment
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <a href="#team" class="btn-n btn-mag">Meet the Team</a>
+        <a href="#team" class="btn-n btn-mag">About Me</a>
       </div>
     </div>
 
@@ -1172,104 +873,9 @@
 
     </div>
 
-    <!-- MOBILE CAM PILL — always visible on mobile, tapping expands cam panel -->
-    <div class="live-pill" id="livePill" role="button" aria-label="Craft Cam — tap to watch">
-      <span class="live-pill-dot"></span>
-      <span class="live-pill-label" id="livePillLabel">Craft Cam</span>
-      <span class="live-pill-sep" id="livePillSep" style="display:none"></span>
-      <span class="live-pill-views" id="livePillViews">247</span>
-    </div>
-
-    <!-- FLOATING VIDEO CARD — straddles the gold divider -->
-    <div class="hero-vc">
-      <div class="vc-header">
-        <div class="vc-live"><span class="vc-dot"></span>Live · Craft Cam</div>
-        <span class="vc-time" id="vcTime">04:32</span>
-      </div>
-      <div class="vc-frame">
-        <img class="vc-img" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80" alt="">
-        <img class="vc-img" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&q=80" alt="">
-        <img class="vc-img" src="https://images.unsplash.com/photo-1622296453892-7a88e6e23c4e?w=400&q=80" alt="">
-        <img class="vc-img" src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&q=80" alt="">
-        <div class="vc-progress-wrap"><div class="vc-progress-bar"></div></div>
-      </div>
-      <div class="vc-footer">
-        <span class="vc-label">Signature Fade — Marcus Cole</span>
-        <span class="vc-badge">4K</span>
-      </div>
-    </div>
-
     <div class="scroll-hint">
       <div class="scroll-line"></div>
       <span class="scroll-label">Scroll</span>
-    </div>
-
-    <!-- CRAFT CAM EXPANDED — covers filmstrip panel, left CRESPO panel stays visible -->
-    <div class="cam-expanded is-offline" id="camExpanded" role="dialog" aria-label="Live Craft Cam" aria-hidden="true">
-
-      <!-- TOP BAR — badge swaps on state -->
-      <div class="cam-top-bar">
-        <div class="cam-badge-live"><span class="cam-live-dot"></span>Live · Craft Cam</div>
-        <div class="cam-badge-offline"><span class="cam-badge-offline-dot"></span>Craft Cam · Off Air</div>
-        <span class="cam-stream-time" id="camStreamTime">04:32</span>
-      </div>
-
-      <!-- OFFLINE STATE -->
-      <div class="cam-feed-offline" id="camOfflineState">
-        <img class="cam-cycle-img" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&q=80" alt="">
-        <img class="cam-cycle-img" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=1600&q=80" alt="">
-        <img class="cam-cycle-img" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1600&q=80" alt="">
-        <div class="cam-scanlines"></div>
-        <div class="cam-offair-badge"><span class="cam-offair-dot"></span>Off Air</div>
-        <p class="cam-next-session">Next live session announced on Instagram · @crespocuts</p>
-      </div>
-
-      <!-- LIVE STATE — mock YouTube player for demo -->
-      <!-- Production: swap .cam-mock-live for <iframe class="cam-yt-frame" src="https://www.youtube.com/embed/live_stream?channel=CHANNEL_ID&autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-      <div class="cam-feed-live" id="camLiveState">
-        <div class="cam-mock-live">
-          <img class="cam-mock-live-img" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=1600&q=80" alt="Live: Marcus Cole — Signature Fade">
-          <div class="cam-scanlines"></div>
-          <div class="cam-yt-bar">
-            <div class="cam-yt-progress">
-              <div class="cam-yt-fill"></div>
-              <div class="cam-yt-live-knob"></div>
-            </div>
-            <div class="cam-yt-meta">
-              <span class="cam-yt-badge">LIVE</span>
-              <span class="cam-yt-channel">CRESPO Barbershop</span>
-            </div>
-          </div>
-        </div>
-        <div class="cam-quality">4K · 60fps</div>
-        <div class="cam-viewers">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span id="camViewers">247</span>&nbsp;watching
-        </div>
-      </div>
-
-      <!-- BOTTOM BAR -->
-      <div class="cam-bottom-bar">
-        <div class="cam-now">
-          <span class="cam-now-label" id="camNowLabel">Off Air</span>
-          <span class="cam-now-name" id="camNowName">Follow @crespocuts for next session</span>
-        </div>
-        <div class="cam-stream-ready" id="camStreamReady">
-          <span class="cam-stream-dot"></span>
-          Stream slot ready
-        </div>
-      </div>
-
-      <!-- DEMO STRIP — remove in production -->
-      <div class="cam-demo-bar">
-        <span class="cam-demo-label">◆ Demo Mode</span>
-        <button class="cam-demo-toggle" id="camDemoToggle">▶ Simulate Going Live</button>
-      </div>
-
-      <!-- Close button last — guaranteed on top -->
-      <button class="cam-close" id="camClose" aria-label="Close craft cam">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
     </div>
 
   </section>
@@ -1277,56 +883,64 @@
   <!-- MARQUEE -->
   <div class="marquee-strip">
     <div class="marquee-track" aria-hidden="true">
-      <span class="mq-item">Precision is Culture</span>
-      <span class="mq-item">Since 2019</span>
-      <span class="mq-item">147 Queen St West · Toronto</span>
-      <span class="mq-item">14,200+ Cuts Delivered</span>
-      <span class="mq-item">Open 7 Days</span>
-      <span class="mq-item">3 Master Barbers</span>
-      <span class="mq-item">Zero Compromises</span>
+      <span class="mq-item">I Come to You</span>
+      <span class="mq-item">Since 2024</span>
+      <span class="mq-item">By Appointment · Toronto</span>
+      <span class="mq-item">850+ Cuts &amp; Counting</span>
+      <span class="mq-item">After School &amp; Weekends</span>
+      <span class="mq-item">Just Me, Every Cut</span>
+      <span class="mq-item">Fresh Every Time</span>
       <span class="mq-item">Book Today</span>
-      <span class="mq-item">Precision is Culture</span>
-      <span class="mq-item">Since 2019</span>
-      <span class="mq-item">147 Queen St West · Toronto</span>
-      <span class="mq-item">14,200+ Cuts Delivered</span>
-      <span class="mq-item">Open 7 Days</span>
-      <span class="mq-item">3 Master Barbers</span>
-      <span class="mq-item">Zero Compromises</span>
+      <span class="mq-item">I Come to You</span>
+      <span class="mq-item">Since 2024</span>
+      <span class="mq-item">By Appointment · Toronto</span>
+      <span class="mq-item">850+ Cuts &amp; Counting</span>
+      <span class="mq-item">After School &amp; Weekends</span>
+      <span class="mq-item">Just Me, Every Cut</span>
+      <span class="mq-item">Fresh Every Time</span>
       <span class="mq-item">Book Today</span>
     </div>
   </div>
 
   <!-- PHILOSOPHY -->
   <section id="philosophy">
-    <div class="phil-bg" aria-hidden="true">PRECISION<br>IS RESPECT</div>
+    <div class="phil-bg" aria-hidden="true">I COME<br>TO YOU</div>
     <div class="phil-layout">
       <div class="jr">
-        <p class="phil-over">Our Philosophy</p>
-        <h2 class="phil-h">Craft is not<br>a service.<br>It's a <em>standard.</em></h2>
-        <p class="phil-body">In a city full of barbershops, we built something different. Every barber at CRESPO operates at the intersection of artisan precision and authentic street culture.</p>
-        <p class="phil-body">We don't rush appointments. We don't compromise technique. When you sit in our chair, you're not buying a haircut — you're accessing a level of craft that takes years to build and a lifetime to perfect.</p>
+        <p class="phil-over">The Approach</p>
+        <h2 class="phil-h">Not just<br>a haircut.<br>A <em>standard.</em></h2>
+        <p class="phil-body">I started cutting hair at home and got obsessed with getting the fade exactly right. That obsession is the whole thing now — it's why people keep coming back.</p>
+        <p class="phil-body">I bring everything to you — chair, clippers, the full setup — so you get a proper cut in your own space. You book me, you get me. Every line-up and fade gets full focus until it looks right.</p>
       </div>
       <div class="phil-pull jr">
-        <p class="phil-pull-text">Precision<br>is <span class="gold">respect.</span></p>
+        <p class="phil-pull-text">Earned,<br>not <span class="gold">given.</span></p>
         <div class="phil-rule"></div>
-        <p class="phil-credit">CRESPO — Core Philosophy</p>
+        <p class="phil-credit">MTHW — How I Work</p>
       </div>
     </div>
     <div class="stats-row jst">
-      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="7">0</span><span class="stat-suf">yrs</span></span><span class="stat-label">In Business</span></div>
-      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="14200">0</span><span class="stat-suf">+</span></span><span class="stat-label">Cuts Delivered</span></div>
-      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="3">0</span></span><span class="stat-label">Master Barbers</span></div>
-      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="0">0</span></span><span class="stat-label">Compromises Made</span></div>
+      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="2">0</span><span class="stat-suf">yrs</span></span><span class="stat-label">On The Clippers</span></div>
+      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="850">0</span><span class="stat-suf">+</span></span><span class="stat-label">Cuts &amp; Counting</span></div>
+      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="1">0</span></span><span class="stat-label">Barber, I Come to You</span></div>
+      <div class="stat-cell"><span class="stat-num"><span class="ctr" data-t="100">0</span><span class="stat-suf">%</span></span><span class="stat-label">Focus, Every Cut</span></div>
     </div>
   </section>
 
   <!-- TEAM -->
   <section id="team">
-    <div class="jr"><p class="sec-over">The Artists</p><h2 class="sec-title">The Craft<br>Behind the Cut</h2></div>
-    <div class="team-grid jst">
-      <div class="bc"><div class="bc-wrap"><img class="bc-photo" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=800&q=80" alt="Marcus Cole"><div class="bc-fade"></div></div><div class="bc-info"><div class="bc-gold"></div><h3 class="bc-name">Marcus Cole</h3><p class="bc-role">Signature Fades &amp; Texture Work</p><a href="#" class="bc-handle">@marcus.crespo</a></div></div>
-      <div class="bc"><div class="bc-wrap"><img class="bc-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Jordan Reyes"><div class="bc-fade"></div></div><div class="bc-info"><div class="bc-gold"></div><h3 class="bc-name">Jordan Reyes</h3><p class="bc-role">Classic Cuts &amp; Straight Razor</p><a href="#" class="bc-handle">@jordan.crespo</a></div></div>
-      <div class="bc"><div class="bc-wrap"><img class="bc-photo" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80" alt="Kai Nakamura"><div class="bc-fade"></div></div><div class="bc-info"><div class="bc-gold"></div><h3 class="bc-name">Kai Nakamura</h3><p class="bc-role">Beard Architecture &amp; Precision Lines</p><a href="#" class="bc-handle">@kai.crespo</a></div></div>
+    <div class="graf-wrap" aria-hidden="true">
+      <span class="graf-mini">MTHW</span>
+      <div class="graf-piece">
+        <div class="graf-word">Matthew</div>
+      </div>
+    </div>
+    <div class="jr"><p class="sec-over">Behind the Chair</p><h2 class="sec-title">Meet<br>Matthew</h2></div>
+    <div class="team-solo jst">
+      <div class="bc"><div class="bc-wrap"><img class="bc-photo" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=800&q=80" alt="Matthew" loading="lazy"><div class="bc-fade"></div></div><div class="bc-info"><div class="bc-gold"></div><h3 class="bc-name">Matthew</h3><p class="bc-role">Fades · Line-Ups · Beard Trims</p><a href="#" class="bc-handle">@mthwcuts</a></div></div>
+      <div class="solo-bio">
+        <p>I'm a young Toronto barber, still in high school. I started cutting friends' hair at home, kept at it every single day, and now I bring my kit to clients across the city.</p>
+        <p>Skin fades and clean line-ups are my thing. Book the chair and I'll make sure you leave sharper than you walked in.</p>
+      </div>
     </div>
   </section>
 
@@ -1335,23 +949,18 @@
     <div class="svc-left">
       <p class="svc-over">The Menu</p>
       <h2 class="svc-title">Select Your<br>Experience</h2>
-      <div class="svc-item act" data-svc="Classic Cut" data-price="$75"><div class="svc-row"><h3 class="svc-name">Classic Cut</h3><span class="svc-price">$75</span></div><p class="svc-desc">The foundation. Scissor technique refined over a decade, tailored precisely to your head shape, hair texture, and lifestyle.</p><span class="svc-dur">45 Minutes</span></div>
-      <div class="svc-item" data-svc="Signature Fade" data-price="$90"><div class="svc-row"><h3 class="svc-name">Signature Fade</h3><span class="svc-price">$90</span></div><p class="svc-desc">Seamless gradients and architectural edges. Our most-requested service, and rightfully so.</p><span class="svc-dur">50 Minutes</span></div>
-      <div class="svc-item" data-svc="Straight Razor Shave" data-price="$95"><div class="svc-row"><h3 class="svc-name">Straight Razor Shave</h3><span class="svc-price">$95</span></div><p class="svc-desc">Hot towel ritual. Damascus steel. A ceremony masquerading as a service.</p><span class="svc-dur">60 Minutes</span></div>
-      <div class="svc-item" data-svc="Beard Architecture" data-price="$65"><div class="svc-row"><h3 class="svc-name">Beard Architecture</h3><span class="svc-price">$65</span></div><p class="svc-desc">Geometric precision applied to facial hair. Lines that announce confidence before you speak.</p><span class="svc-dur">35 Minutes</span></div>
-      <div class="svc-item" data-svc="The Full Treatment" data-price="$150"><div class="svc-row"><h3 class="svc-name">The Full Treatment</h3><span class="svc-price">$150</span></div><p class="svc-desc">Cut, shave, beard architecture, and a personalized consultation. Leave looking like yourself — only sharper.</p><span class="svc-dur">90 Minutes</span></div>
+      <div class="svc-item act" data-svc="Cut &amp; Style" data-price="$30"><div class="svc-row"><h3 class="svc-name">Cut &amp; Style</h3><span class="svc-price">$30</span></div><p class="svc-desc">Scissor and clipper work shaped to your head and how you actually wear your hair.</p><span class="svc-dur">40 Minutes</span></div>
+      <div class="svc-item" data-svc="Skin Fade" data-price="$35"><div class="svc-row"><h3 class="svc-name">Skin Fade</h3><span class="svc-price">$35</span></div><p class="svc-desc">Clean gradient from the skin up. My most-booked cut — and the one I love doing most.</p><span class="svc-dur">45 Minutes</span></div>
+      <div class="svc-item" data-svc="Line-Up" data-price="$15"><div class="svc-row"><h3 class="svc-name">Line-Up / Edge-Up</h3><span class="svc-price">$15</span></div><p class="svc-desc">Sharp edges and a crisp hairline to clean up between full cuts. In and out.</p><span class="svc-dur">20 Minutes</span></div>
+      <div class="svc-item" data-svc="Cut + Beard" data-price="$40"><div class="svc-row"><h3 class="svc-name">Cut + Beard Trim</h3><span class="svc-price">$40</span></div><p class="svc-desc">Full cut plus a shaped, tidied beard so the whole thing lines up together.</p><span class="svc-dur">50 Minutes</span></div>
+      <div class="svc-item" data-svc="Kids Cut" data-price="$25"><div class="svc-row"><h3 class="svc-name">Kids Cut (12 &amp; under)</h3><span class="svc-price">$25</span></div><p class="svc-desc">Patient, quick, and no fuss for the younger ones. Parents wait right there.</p><span class="svc-dur">30 Minutes</span></div>
     </div>
     <div class="svc-right">
       <div class="bk-panel" id="booking">
         <h3 class="bk-title">Book Your Appointment</h3>
-        <p class="bk-svc" id="bkSvc">Classic Cut — $75</p>
-        <p class="bk-lbl">Select Your Barber</p>
-        <div class="bk-barbers" id="bkBarbers">
-          <button class="bk-btn s">Marcus C.</button>
-          <button class="bk-btn">Jordan R.</button>
-          <button class="bk-btn">Kai N.</button>
-        </div>
-        <p class="bk-lbl">Available Times — Thu, Apr 17</p>
+        <p class="bk-svc" id="bkSvc">Cut &amp; Style — $30</p>
+        <p class="bk-lbl">With Matthew · Mobile Service</p>
+        <p class="bk-lbl">Available Times — This Week</p>
         <div class="time-grid" id="timeGrid">
           <button class="t-slot off">9:00</button><button class="t-slot">9:45</button>
           <button class="t-slot">10:30</button><button class="t-slot off">11:15</button>
@@ -1375,23 +984,23 @@
       <div style="text-align:right">
         <div class="rev-avg-num">4.9</div>
         <div class="rev-stars"><div class="rev-star"></div><div class="rev-star"></div><div class="rev-star"></div><div class="rev-star"></div><div class="rev-star"></div></div>
-        <div class="rev-count">847 Reviews</div>
+        <div class="rev-count">124 Reviews</div>
       </div>
     </div>
     <div class="rev-item">
       <span class="rev-num" aria-hidden="true">01</span>
-      <blockquote class="rev-quote">"Walked in looking like everyone else.<br>Left looking like myself."</blockquote>
-      <div class="rev-meta"><div class="rev-dots"><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div></div><p class="rev-name">Darius K.</p><p class="rev-role">Executive Creative Director</p><p class="rev-svc">Signature Fade · April 2026</p><span class="rev-badge">Returned ×14</span></div>
+      <blockquote class="rev-quote">"Best fade I’ve had — and he’s younger than me.<br>Books up fast for a reason."</blockquote>
+      <div class="rev-meta"><div class="rev-dots"><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div></div><p class="rev-name">Darius K.</p><p class="rev-role">Regular client</p><p class="rev-svc">Skin Fade · May 2026</p><span class="rev-badge">Returned ×6</span></div>
     </div>
     <div class="rev-item">
       <span class="rev-num" aria-hidden="true">02</span>
-      <blockquote class="rev-quote">"CRESPO doesn't give you a haircut.<br>They give you back your face."</blockquote>
-      <div class="rev-meta"><div class="rev-dots"><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div></div><p class="rev-name">Oliver M.</p><p class="rev-role">Architect</p><p class="rev-svc">The Full Treatment · March 2026</p><span class="rev-badge">Returned ×8</span></div>
+      <blockquote class="rev-quote">"Took his time, asked what I wanted,<br>and actually listened. My barber now."</blockquote>
+      <div class="rev-meta"><div class="rev-dots"><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div></div><p class="rev-name">Oliver M.</p><p class="rev-role">Client</p><p class="rev-svc">Cut + Beard · April 2026</p><span class="rev-badge">Returned ×4</span></div>
     </div>
     <div class="rev-item">
       <span class="rev-num" aria-hidden="true">03</span>
-      <blockquote class="rev-quote">"Every city has barbershops.<br>Some cities have one CRESPO."</blockquote>
-      <div class="rev-meta"><div class="rev-dots"><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div></div><p class="rev-name">James T.</p><p class="rev-role">Entrepreneur</p><p class="rev-svc">Classic Cut · February 2026</p><span class="rev-badge">Returned ×22</span></div>
+      <blockquote class="rev-quote">"My son actually sits still for him now.<br>Worth every minute."</blockquote>
+      <div class="rev-meta"><div class="rev-dots"><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div><div class="rev-dot"></div></div><p class="rev-name">Renée P.</p><p class="rev-role">Parent</p><p class="rev-svc">Kids Cut · April 2026</p><span class="rev-badge">Returned ×5</span></div>
     </div>
   </section>
 
@@ -1402,12 +1011,12 @@
     <div class="cul-graffiti" aria-hidden="true">
       <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
 
-        <!-- GHOST "CRESPO" — mega letterform, back wall -->
+        <!-- GHOST "MTHW" — mega letterform, back wall -->
         <text x="-30" y="520"
           font-family="Anybody, sans-serif" font-weight="900" font-size="360"
           letter-spacing="-14" fill="none"
           stroke="rgba(255,255,255,0.04)" stroke-width="1.2"
-          transform="rotate(-2 800 520)">CRESPO</text>
+          transform="rotate(-2 800 520)">MTHW</text>
 
         <!-- ═══════════════════════════════════════
              ELECTRIC CLIPPERS — PRIMARY ELEMENT
@@ -1605,7 +1214,7 @@
           font-family="Anybody, sans-serif" font-weight="900" font-size="36"
           letter-spacing="10" fill="none"
           stroke="rgba(255,255,255,0.058)" stroke-width="0.9"
-          transform="rotate(-6 1492 892)">CBC</text>
+          transform="rotate(-6 1492 892)">MTW</text>
 
         <!-- FLOW LINE — subtle wave beneath ghost letters -->
         <path d="M-40,562 Q200,592 440,560 Q680,528 920,554 Q1160,580 1400,547 Q1520,530 1650,557"
@@ -1621,33 +1230,33 @@
     </div>
 
     <div class="cul-hdr jr">
-      <div><p class="sec-over">The Culture</p><h2 class="sec-title" style="margin-bottom:0">This Is<br>Our World</h2></div>
-      <a href="#" class="cul-link">Follow @crespocuts</a>
+      <div><p class="sec-over">The Culture</p><h2 class="sec-title" style="margin-bottom:0">This Is<br>The Work</h2></div>
+      <a href="#" class="cul-link">Follow @mthwcuts</a>
     </div>
     <div class="bento jst">
-      <div class="bi feat"><img class="bi-img" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1200&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Marcus putting in work on a signature taper. This is precision up close.</p><p class="bi-tag">@marcus.crespo</p></div></div>
-      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Damascus steel, ready.</p><p class="bi-tag">#CraftFirst</p></div></div>
-      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">The space. Every detail deliberate.</p><p class="bi-tag">#CrespoShop</p></div></div>
-      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1622296453892-7a88e6e23c4e?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">The line. Clean. Architectural. Perfect.</p><p class="bi-tag">#EdgeWork</p></div></div>
+      <div class="bi feat"><img class="bi-img" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1200&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Mid-fade. This is the part I obsess over.</p><p class="bi-tag">@mthwcuts</p></div></div>
+      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Clippers cleaned, lined up, ready to go.</p><p class="bi-tag">#CraftFirst</p></div></div>
+      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">The kit — everything I need, packed and mobile.</p><p class="bi-tag">#MobileSetup</p></div></div>
+      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1622296453892-7a88e6e23c4e?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">The line-up. Crisp every time.</p><p class="bi-tag">#EdgeWork</p></div></div>
       <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Fresh cut, fresh perspective.</p><p class="bi-tag">#ClientStories</p></div></div>
-      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=1200&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Saturday morning. Full house. Pure energy.</p><p class="bi-tag">#CrespoCulture</p></div></div>
-      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Beard architecture that would make Euclid proud.</p><p class="bi-tag">@kai.crespo</p></div></div>
-      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Jordan lining up the fade that started the conversation.</p><p class="bi-tag">@jordan.crespo</p></div></div>
+      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=1200&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Saturday mornings book out completely.</p><p class="bi-tag">#MthwCulture</p></div></div>
+      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">Beard trim shaped to match the cut.</p><p class="bi-tag">@mthwcuts</p></div></div>
+      <div class="bi"><img class="bi-img" src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=600&q=80" alt=""><div class="bi-ov"><p class="bi-cap">The fade that got people talking.</p><p class="bi-tag">@mthwcuts</p></div></div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <div class="ft-grid">
-      <div><div class="ft-logo">C<br>R<br>E<br>S<br>P<br>O</div><p class="ft-tag">Where architectural precision meets street credibility. Precision is respect.</p></div>
+      <div><div class="ft-logo">M<br>T<br>H<br>W</div><p class="ft-tag">A young Toronto barber building a name one cut at a time. One chair, full focus.</p></div>
       <div>
-        <div class="ft-grp"><p class="ft-lbl">Location</p><p class="ft-val">147 Queen Street West<br>Toronto, ON M5H 2N2</p></div>
-        <div class="ft-grp"><p class="ft-lbl">Hours</p><p class="ft-val">Mon–Fri: 9am – 8pm<br>Saturday: 8am – 6pm<br>Sunday: 10am – 5pm</p></div>
-        <div class="ft-grp"><p class="ft-lbl">Contact</p><p class="ft-val">hello@crespocuts.com</p></div>
+        <div class="ft-grp"><p class="ft-lbl">Service Area</p><p class="ft-val">Mobile across Toronto<br>I travel to you</p></div>
+        <div class="ft-grp"><p class="ft-lbl">Hours</p><p class="ft-val">Weekdays: 4pm – 8pm (after school)<br>Saturday: 10am – 6pm<br>Sunday: by appointment</p></div>
+        <div class="ft-grp"><p class="ft-lbl">Contact</p><p class="ft-val">hello@mthwcuts.com</p></div>
       </div>
       <div>
         <h4 class="nl-head">Join the List</h4>
-        <p class="nl-sub">First access to appointment slots, new barber announcements, and exclusive CRESPO events. No noise. Just signal.</p>
+        <p class="nl-sub">First dibs on new slots, drop-in days, and chair updates. No spam — just a heads up when I'm free.</p>
         <form class="nl-form" onsubmit="return false;">
           <input class="nl-in" type="email" placeholder="your@email.com">
           <button class="nl-btn">Request Access</button>
@@ -1655,7 +1264,7 @@
       </div>
     </div>
     <div class="ft-bot">
-      <p class="ft-copy">© 2026 CRESPO Barbershop. All rights reserved.</p>
+      <p class="ft-copy">© 2026 MTHW · Toronto. All rights reserved.</p>
       <div class="ft-soc"><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Twitter</a></div>
     </div>
   </footer>
@@ -1671,7 +1280,7 @@
 
     <div class="rb-left">
       <div class="rb-dot"></div>
-      <div><div class="rb-station">CRESPO Radio</div><div class="rb-sub">Toronto Underground · SomaFM</div></div>
+      <div><div class="rb-station">MTHW Radio</div><div class="rb-sub">Toronto Underground · SomaFM</div></div>
       <div class="rb-wave" id="rbWave">
         <span></span><span></span><span></span><span></span><span></span>
       </div>
@@ -1681,7 +1290,7 @@
       <span class="rb-np">Now Playing</span>
       <div class="rb-track-wrap">
         <span class="rb-track" id="rbTrack">
-          Groove Salad · Ambient Electronic &nbsp;·&nbsp; Chill Beats for the Chair &nbsp;·&nbsp; CRESPO Sessions Vol. 3 &nbsp;·&nbsp; Deep Focus Cuts &nbsp;·&nbsp; Sounds of the Shop &nbsp;·&nbsp; Groove Salad · Ambient Electronic &nbsp;·&nbsp; Chill Beats for the Chair &nbsp;·&nbsp; CRESPO Sessions Vol. 3 &nbsp;·&nbsp; Deep Focus Cuts &nbsp;·&nbsp; Sounds of the Shop &nbsp;·&nbsp;
+          Groove Salad · Ambient Electronic &nbsp;·&nbsp; Chill Beats for the Chair &nbsp;·&nbsp; MTHW Sessions Vol. 3 &nbsp;·&nbsp; Deep Focus Cuts &nbsp;·&nbsp; Sounds of the Shop &nbsp;·&nbsp; Groove Salad · Ambient Electronic &nbsp;·&nbsp; Chill Beats for the Chair &nbsp;·&nbsp; MTHW Sessions Vol. 3 &nbsp;·&nbsp; Deep Focus Cuts &nbsp;·&nbsp; Sounds of the Shop &nbsp;·&nbsp;
         </span>
       </div>
     </div>
@@ -1748,104 +1357,6 @@
         ticking = true;
       }
     }, { passive: true });
-
-    // ── VIDEO CARD COUNTER ──────────────────
-    let vcSecs = 4 * 60 + 32;
-    setInterval(() => {
-      vcSecs++;
-      const m = Math.floor(vcSecs / 60).toString().padStart(2, '0');
-      const s = (vcSecs % 60).toString().padStart(2, '0');
-      const timeStr = m + ':' + s;
-      const vcEl = document.getElementById('vcTime');
-      const camEl = document.getElementById('camStreamTime');
-      if (vcEl) vcEl.textContent = timeStr;
-      if (camEl) camEl.textContent = timeStr;
-    }, 1000);
-
-    // ── CRAFT CAM EXPAND ────────────────────
-    const heroVc        = document.querySelector('.hero-vc');
-    const camPanel      = document.getElementById('camExpanded');
-    const camClose      = document.getElementById('camClose');
-    const camViewEl     = document.getElementById('camViewers');
-    const camOfflineEl  = document.getElementById('camOfflineState');
-    const camLiveEl     = document.getElementById('camLiveState');
-    const camNowLabel   = document.getElementById('camNowLabel');
-    const camNowName    = document.getElementById('camNowName');
-    const camStreamRdy  = document.getElementById('camStreamReady');
-    const camDemoToggle = document.getElementById('camDemoToggle');
-    const livePill      = document.getElementById('livePill');
-    const livePillViews = document.getElementById('livePillViews');
-    let camViewInterval = null;
-    let camIsLive = false;
-
-    // Apply correct initial state on page load
-    if (window.innerWidth <= 768) heroVc.classList.add('cam-offline-mobile');
-
-    // Pill click → open cam (same as clicking the card on desktop)
-    livePill.addEventListener('click', openCam);
-
-    function setCamLive(live) {
-      camIsLive = live;
-      // On mobile: hide the card, toggle pill badge instead
-      heroVc.classList.toggle('cam-offline-mobile', !live && window.innerWidth <= 768);
-      livePill.classList.toggle('is-live', live);
-      document.getElementById('livePillLabel').textContent = live ? 'Live Now' : 'Craft Cam';
-      document.getElementById('livePillSep').style.display = live ? 'block' : 'none';
-      if (live) {
-        camPanel.classList.remove('is-offline');
-        camOfflineEl.style.display = 'none';
-        camLiveEl.style.display    = 'block';
-        camNowLabel.textContent    = 'Now Live';
-        camNowName.textContent     = 'Signature Fade — Marcus Cole';
-        camStreamRdy.style.display = 'none';
-        camDemoToggle.textContent  = '◼ Simulate Going Offline';
-        camDemoToggle.classList.add('is-live');
-        clearInterval(camViewInterval);
-        camViewInterval = setInterval(() => {
-          const v = Math.max(190, 247 + Math.round((Math.random() - 0.35) * 55));
-          if (camViewEl) camViewEl.textContent = v;
-          if (livePillViews) livePillViews.textContent = v;
-        }, 3200);
-      } else {
-        camPanel.classList.add('is-offline');
-        camOfflineEl.style.display = 'block';
-        camLiveEl.style.display    = 'none';
-        camNowLabel.textContent    = 'Off Air';
-        camNowName.textContent     = 'Follow @crespocuts for next session';
-        camStreamRdy.style.display = 'flex';
-        camDemoToggle.textContent  = '▶ Simulate Going Live';
-        camDemoToggle.classList.remove('is-live');
-        clearInterval(camViewInterval);
-      }
-    }
-
-    function openCam() {
-      heroVc.classList.add('cam-hidden');
-      camPanel.classList.add('open');
-      camPanel.setAttribute('aria-hidden', 'false');
-      setCamLive(false); // always opens in offline state (production: replace with API check)
-      /* ── PRODUCTION: replace setCamLive(false) with YouTube API check ──
-      fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=CHANNEL_ID&eventType=live&type=video&key=API_KEY`)
-        .then(r => r.json())
-        .then(d => setCamLive(d.items && d.items.length > 0));
-      ── end production block ── */
-    }
-
-    function closeCam() {
-      camPanel.classList.remove('open');
-      camPanel.setAttribute('aria-hidden', 'true');
-      clearInterval(camViewInterval);
-      setTimeout(() => heroVc.classList.remove('cam-hidden'), 380);
-    }
-
-    heroVc.addEventListener('click', openCam);
-    camClose.addEventListener('click', e => { e.stopPropagation(); closeCam(); });
-    camDemoToggle.addEventListener('click', e => { e.stopPropagation(); setCamLive(!camIsLive); });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && camPanel.classList.contains('open')) closeCam();
-    });
-
 
     // ── SERVICES ────────────────────────────
     document.querySelectorAll('.svc-item').forEach(item => {
